@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "deamon": "^1.0.0",
     "dotenv": "^16.0.3",
@@ -21,6 +23,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
+    "routerjs": "^2.4.5",
     "sequelize": "^6.24.0"
   }
 }
