@@ -1,12 +1,22 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 require('dotenv').config();
+
+const express = require('express');
 const sequelize = require('./config/db');
-const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+const routes = require('./routes/index');
 
 
-const listener = app.listen(process.env.PORT || 4000, () => {
-    console.log(`Server is listening on port ` + listener.address().port);
-  });
+const app = express()
+app.use(express.json())
+
+app.use('/api', routes);
+
+try {
+    sequelize.authenticate()
+    sequelize.sync()
+} catch (error) {
+    console.log(error)
+}
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`)
+})
