@@ -1,15 +1,23 @@
-require('dotenv').config();
+require('dotenv').config()
 
-const express = require('express');
-const sequelize = require('./config/db');
-const routes = require('./routes/index');
-const Usuario = require('./models/Usuario');
-const Player = require('./models/player');
+const express = require('express')
+const sequelize = require('./config/db')
+const routes = require('./routes/index')
+
+const options = require('./swagger')
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
+
+const Usuario = require('./models/Usuario')
+const Player = require('./models/player')
+
+
 
 const app = express()
 app.use(express.json())
 
-app.use('/api', routes);
+app.use('/', routes)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsDoc(options)))
 
 try {
     sequelize.authenticate()

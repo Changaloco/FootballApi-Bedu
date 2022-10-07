@@ -5,6 +5,8 @@ const players = require('./players')
 router.get('/', (req, res) => {
     res.json({'info': 'Welcome to football API!'})
 });
-router.use('/players', players)
+
+
+router.use('/', players)
 
 module.exports = router;
