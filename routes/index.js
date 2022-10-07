@@ -7,6 +7,6 @@ router.get('/', (req, res) => {
 });
 
 
-router.use('/', players)
+router.use('/players', players)
 
 module.exports = router;

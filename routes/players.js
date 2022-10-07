@@ -73,7 +73,7 @@ const { createPlayer, getPlayers, getPlayersByPosition} = require('../controller
  *                 error:
  *                  type: string
  */
-router.post('/players', createPlayer)
+router.post('/', createPlayer)
 
 
 // GET /players
@@ -124,7 +124,7 @@ router.post('/players', createPlayer)
  *                 message:
  *                  type: string
  */
-router.get('/players', getPlayers)
+router.get('/', getPlayers)
 
 // GET /players/:position
 // Get all players by position
@@ -176,6 +176,6 @@ router.get('/players', getPlayers)
  *                 message:
  *                  type: string
  */
-router.get('/:id', getPlayersByPosition)
+router.get('/', getPlayersByPosition)
 
 module.exports = router;

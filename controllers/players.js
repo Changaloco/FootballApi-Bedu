@@ -58,7 +58,7 @@ async function getPlayers(req, res) {
 // GET /players/:position
 // Get all players by position
 async function getPlayersByPosition(req, res) {
-    const id = req.params.id;
+    const position = req.query.position
     console.log("Ente al metodo")
     try {
         const players = await Player.findByPk(id)
