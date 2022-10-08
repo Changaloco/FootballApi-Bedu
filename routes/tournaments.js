@@ -6,6 +6,8 @@ const { createTournament, getTournaments, getTournamentById, updateTournamentByI
  * @openapi
  * '/tournaments':
  *  post:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Create a tournament
@@ -95,6 +97,8 @@ router.post('/', createTournament)
  * @openapi
  * '/tournaments':
  *  get:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Get all tournaments
@@ -149,6 +153,8 @@ router.get('/', getTournaments)
  * @openapi
  * '/tournaments/{id_tournament}':
  *  get:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Get a tournament by id
@@ -207,6 +213,8 @@ router.get('/:id_tournament', getTournamentById)
  * @openapi
  * '/tournaments/{id_tournament}':
  *  put:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Update a tournament
@@ -300,6 +308,8 @@ router.put('/:id_tournament', updateTournamentById)
  * @openapi
  * '/tournaments/{id_tournament}':
  *  delete:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Delete a tournament by id

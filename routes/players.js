@@ -6,6 +6,8 @@ const { createPlayer, getPlayers, getPlayerById, updatePlayerById, deletePlayerB
  * @openapi
  * '/players':
  *  post:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Create a player
@@ -83,6 +85,8 @@ router.post('/', createPlayer)
  * @openapi
  * '/players':
  *  get:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Get all players
@@ -133,6 +137,8 @@ router.get('/', getPlayers)
  * @openapi
  * '/players/{id_player}':
  *  get:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Get a player by id
@@ -186,6 +192,8 @@ router.get('/:id_player', getPlayerById)
  * @openapi
  * '/players/{id_player}':
  *  put:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Update a player
@@ -268,6 +276,8 @@ router.put('/:id_player', updatePlayerById)
  * @openapi
  * '/players/{id_player}':
  *  delete:
+ *     security:
+ *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Delete a player by id

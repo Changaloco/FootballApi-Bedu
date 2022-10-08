@@ -1,7 +1,7 @@
 
 // configure the Swagger UI
 const options = {
-    swaggerDefinition: {
+    definition: {
         openapi: "3.0.0",
         info: {
             title: "Football API",
@@ -14,15 +14,25 @@ const options = {
                 email: ""
             },
         },
+        components: {
+            securitySchemes: {
+                Authorization: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                    value: "Bearer <JWT token here>"
+                }
+            }
+        },
         servers: [
             {
                 url: "http://localhost:4000",
             },
         ],
     },
-    apis: ["./routes/*.js"],
+
+    apis: ["./routes/*.js"]
 }
-//apis: ['./routes/*.js', './controllers/*.js'],
 
 module.exports = options
 
