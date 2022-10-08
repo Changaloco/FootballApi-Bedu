@@ -29,8 +29,8 @@ const { createPlayer, getPlayers, getPlayersByPosition} = require('../controller
  *                type: string
  *                default: Messi
  *              birthDate:
- *                type: string
- *                default: 1987-06-24
+ *                type: date
+ *                default: '1987-06-24'
  *              position:
  *                type: string
  *                default: Forward
@@ -48,7 +48,7 @@ const { createPlayer, getPlayers, getPlayersByPosition} = require('../controller
  *                  playerSurname:
  *                    type: string
  *                  birthDate:
- *                    type: string
+ *                    type: date
  *                  position:
  *                    type: string
  * 
@@ -103,7 +103,7 @@ router.post('/', createPlayer)
  *                  playerSurname:
  *                    type: string
  *                  birthDate:
- *                    type: string
+ *                    type: date
  *                  position:
  *                    type: string
  *       400:
@@ -126,11 +126,11 @@ router.post('/', createPlayer)
  */
 router.get('/', getPlayers)
 
-// GET /players/:position
+// GET /players?position
 // Get all players by position
 /**
  * @openapi
- * '/players/{position}':
+ * '/players':
  *  get:
  *     tags:
  *     - Players
@@ -155,7 +155,7 @@ router.get('/', getPlayers)
  *                  playerSurname:
  *                    type: string
  *                  birthDate:
- *                    type: string
+ *                    type: date
  *                  position:
  *                    type: string
  *       404:
@@ -176,6 +176,8 @@ router.get('/', getPlayers)
  *                 message:
  *                  type: string
  */
-router.get('/', getPlayersByPosition)
+router.get('/players', getPlayersByPosition)
+
+
 
 module.exports = router;

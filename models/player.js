@@ -16,11 +16,12 @@ const Player = sequelize.define('Player', {
 
     playerSurname: {
         type: DataTypes.STRING(50),
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
 
     birthDate: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.DATE,
         allowNull: false
     },
 

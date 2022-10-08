@@ -20,22 +20,21 @@ const Tournament = sequelize.define('Tournament', {
     },
 
     startDate: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.DATE,
         allowNull: false
     },
 
     endDate: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.DATE,
         allowNull: false
     },
 
     winner: {
         type: DataTypes.STRING(50),
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
 
-    typeTourment: {
+    typeTournament: {
         type: DataTypes.STRING(50),
         allowNull: false
     }

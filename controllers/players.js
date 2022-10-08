@@ -14,7 +14,7 @@ async function createPlayer(req, res) {
             birthDate,
             position
         })
-        res.status(201).json({
+        return res.status(201).json({
             id_player: player.id_player,
             playerName,
             playerSurname,
@@ -23,7 +23,7 @@ async function createPlayer(req, res) {
         })
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: 'Internal server error',
             error
         })
@@ -39,29 +39,29 @@ async function getPlayers(req, res) {
 
     try {
         const players = await Player.findAll()
-        res.status(200).json({
+        return res.status(200).json({
             players
         })
     } catch (error) {
-        res.status(404).json({
+        return res.status(404).json({
             message: 'Something goes wrong',
             data: { error }
-        })
-        
-        res.status(500).json({
-            message: 'Internal server error',
-            error
         })
     }
 }
 
-// GET /players/:position
+// GET /players?position=goalkeep
 // Get all players by position
+
 async function getPlayersByPosition(req, res) {
     const position = req.query.position
     console.log("Ente al metodo")
     try {
-        const players = await Player.findByPk(id)
+        const players = await Player.findOne({
+            where: {
+                position
+            }
+        })
         console.log(players)
         if(!players.position) {
             return res.status(404).json({
