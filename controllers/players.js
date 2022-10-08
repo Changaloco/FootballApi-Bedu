@@ -14,6 +14,19 @@ async function createPlayer(req, res) {
             birthDate,
             position
         })
+
+        if(!player) {
+            return res.status(409).json({
+                message: 'Conflict'
+            })
+        }
+
+        if(!playerName || !playerSurname || !birthDate || !position) {
+            return res.status(400).json({
+                message: 'Bad request'
+            })
+        }
+
         return res.status(201).json({
             id_player: player.id_player,
             playerName,
@@ -27,11 +40,6 @@ async function createPlayer(req, res) {
             message: 'Internal server error',
             error
         })
-        res.status(400).json({
-            message: 'Something goes wrong',
-            data: { error }
-        })
-
     }
 }
 
@@ -50,31 +58,99 @@ async function getPlayers(req, res) {
     }
 }
 
-// GET /players?position=goalkeep
-// Get all players by position
-
-async function getPlayersByPosition(req, res) {
-    const position = req.query.position
-    console.log("Ente al metodo")
+// GET /players/:id_player
+// Get all players by id
+async function getPlayerById(req, res) {
+    const playerId = req.params.id_player
     try {
-        const players = await Player.findOne({
-            where: {
-                position
-            }
-        })
-        console.log(players)
-        if(!players.position) {
+        const players = await Player.findByPk(playerId)
+
+        if(!players) {
             return res.status(404).json({
-                message: 'Player not found'
+                message: 'Not found player with this id: ' + playerId
             })
-        } 
+        }
+
+        return res.status(200).json({
+            id_player: players.id_player,
+            playerName: players.playerName,
+            playerSurname: players.playerSurname,
+            birthDate: players.birthDate,
+            position: players.position
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Internal server error',
+            error
+        })
+    }
+}
+
+// PUT /players/:id_player
+// Update a player by id
+async function updatePlayerById(req, res) {
+    const playerId = req.params.id_player
+    const { playerName, playerSurname, birthDate, position } = req.body
+    try {
+        const players = await Player.findByPk(playerId)
+
+        if(!players) {
+            return res.status(404).json({
+                message: 'Not found player with this id: ' + playerId
+            })
+        }
+
+        if(!playerName || !playerSurname || !birthDate || !position) {
+            return res.status(400).json({
+                message: 'Bad request'
+            })
+        }
         
-        res.status(200).json({
-            players
+        players.playerName = playerName
+        players.playerSurname = playerSurname
+        players.birthDate = birthDate
+        players.position = position
+
+        await players.save()
+
+        return res.status(200).json({
+            id_player: players.id_player,
+            playerName,
+            playerSurname,
+            birthDate,
+            position
         })
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
+            message: 'Internal server error',
+            error
+        })
+    }
+}
+
+// DELETE /players/:id_player
+// Delete a player by id
+
+async function deletePlayerById(req, res) {
+    const playerId = req.params.id_player
+    try {
+        const players = await Player.findByPk(playerId)
+
+        if(!players) {
+            return res.status(404).json({
+                message: 'Not found player with this id: ' + playerId
+            })
+        }
+
+        await players.destroy()
+
+        return res.status(204).json({
+            message: 'Player deleted successfully'
+        })
+
+    } catch (error) {
+        return res.status(500).json({
             message: 'Internal server error',
             error
         })
@@ -82,8 +158,11 @@ async function getPlayersByPosition(req, res) {
 }
 
 
+
 module.exports = {
     createPlayer,
     getPlayers,
-    getPlayersByPosition
+    getPlayerById,
+    updatePlayerById,
+    deletePlayerById    
 }

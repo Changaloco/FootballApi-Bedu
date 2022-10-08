@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { createPlayer, getPlayers, getPlayersByPosition} = require('../controllers/players')
+const { createPlayer, getPlayers, getPlayerById, updatePlayerById, deletePlayerById} = require('../controllers/players');
 
 /**
  * @openapi
@@ -9,7 +9,7 @@ const { createPlayer, getPlayers, getPlayersByPosition} = require('../controller
  *     tags:
  *     - Players
  *     summary: Create a player
- *     description: Create a player
+ *     description: Create a new player in the database
  *     requestBody:
  *      required: true
  *      content:
@@ -24,19 +24,20 @@ const { createPlayer, getPlayers, getPlayersByPosition} = require('../controller
  *            properties:
  *              playerName:
  *                type: string
- *                default: Lionel
+ *                default: 'Lionel'
  *              playerSurname:
  *                type: string
- *                default: Messi
+ *                default: 'Messi'
  *              birthDate:
  *                type: date
  *                default: '1987-06-24'
  *              position:
  *                type: string
- *                default: Forward
+ *                default: 'Forward'
+ *              
  *     responses:
  *      201:
- *        description: Created player
+ *        description: Created tournament successfully
  *        content:
  *          application/json:
  *            schema:
@@ -46,7 +47,7 @@ const { createPlayer, getPlayers, getPlayersByPosition} = require('../controller
  *                  playerName:
  *                    type: string
  *                  playerSurname:
- *                    type: string
+ *                    type: int
  *                  birthDate:
  *                    type: date
  *                  position:
@@ -126,24 +127,24 @@ router.post('/', createPlayer)
  */
 router.get('/', getPlayers)
 
-// GET /players?position
-// Get all players by position
+// GET /players/:id_player
+// Get player by id
 /**
  * @openapi
- * '/players':
+ * '/players/{id_player}':
  *  get:
  *     tags:
  *     - Players
- *     summary: Get all players with the same position
- *     description: Get all players with the same position from database
+ *     summary: Get a player by id
+ *     description: Get a player if exists in the database
  *     parameters:
- *        - name: position
- *          in: params
- *          description: Position of the player
+ *        - name: id_player
+ *          in: path
+ *          description: Id of the player
  *          required: true
  *     responses:
  *       200:
- *         description: Success
+ *         description: Success return a player
  *         content:
  *          application/json:
  *            schema:
@@ -176,8 +177,128 @@ router.get('/', getPlayers)
  *                 message:
  *                  type: string
  */
-router.get('/players', getPlayersByPosition)
+router.get('/:id_player', getPlayerById)
 
 
+// PUT /players/:id_player
+// Update player by id
+/**
+ * @openapi
+ * '/players/{id_player}':
+ *  put:
+ *     tags:
+ *     - Players
+ *     summary: Update a player
+ *     description: Update a player if exists by id from database
+ *     parameters:
+ *        - name: id_player
+ *          in: path
+ *          description: Id of the id_player
+ *          required: true
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - playerName
+ *              - playerSurname
+ *              - birthDate
+ *              - position
+ *            properties:
+ *              playerName:
+ *                type: string
+ *                default: 'Lionel'
+ *              playerSurname:
+ *                type: string
+ *                default: 'Messi'
+ *              birthDate:
+ *                type: date
+ *                default: '1987-06-24'
+ *              position:
+ *                type: string
+ *                default: 'Forward'
+ *              
+ *     responses:
+ *      200:
+ *        description: Updated player successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *               properties:
+ *                  id_player:
+ *                    type: number
+ *                  playerName:
+ *                    type: string
+ *                  playerSurname:
+ *                    type: string
+ *                  birthDate:
+ *                    type: date
+ *                  position:
+ *                    type: string
+
+ * 
+ *      409:
+ *        description: Conflict
+ *        content:
+ *          application/json:
+ *           schema:
+ *              properties:
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                  type: string
+ *      404:
+ *        description: Not found
+ *        content:
+ *          application/json:
+ *           schema:
+ *              properties:
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                  type: string
+ */
+router.put('/:id_player', updatePlayerById)
+
+// DELETE /players/:id_player
+// Delete player by id
+/**
+ * @openapi
+ * '/players/{id_player}':
+ *  delete:
+ *     tags:
+ *     - Players
+ *     summary: Delete a player by id
+ *     description: Delete a player if exists by id from database 
+ *     parameters:
+ *        - name: id_player
+ *          in: path
+ *          description: Id of the player
+ *          required: true
+ *     responses:
+ *       204:
+ *         description: Success delete
+ *       
+ *       404:
+ *         description: Not found
+ *         content:
+ *          application/json:
+ *           schema:
+ *              properties:
+ *                 message:
+ *                  type: string
+ * 
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *              properties:
+ *                 message:
+ *                  type: string
+ */
+router.delete('/:id_player', deletePlayerById)
 
 module.exports = router;

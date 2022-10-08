@@ -13,6 +13,19 @@ async function createTournament(req, res) {
             winner,
             typeTournament
         })
+
+        if(!tournament) {
+            return res.status(409).json({
+                message: 'Conflict'
+            })
+        }
+
+        if(!tournamentName || !year || !startDate || !endDate || !winner || !typeTournament) {
+            return res.status(400).json({
+                message: 'Bad request'
+            })
+        }
+
         return res.status(201).json({
             id_tournament: tournament.id_tournament,
             tournamentName,
@@ -35,15 +48,11 @@ async function createTournament(req, res) {
 async function getTournaments(req, res) {
     try {
         const tournaments = await Tournament.findAll()
-        res.status(200).json({
+        return res.status(200).json({
             tournaments
         })
     } catch (error) {
-        res.status(404).json({
-            message: 'Something goes wrong',
-            data: { error }
-        })
-        res.status(500).json({
+        return res.status(500).json({
             message: 'Internal server error',
             error
         })
@@ -59,7 +68,7 @@ async function getTournamentById(req, res) {
 
         if(!tournaments) {
             return res.status(404).json({
-                message: 'Tournament not found'
+                message: 'Tournament not found with id: ' + tournamentId
             })
         }
 
@@ -91,7 +100,7 @@ async function updateTournamentById(req, res) {
         if(!tournaments) {
             return res.status(404).json({
 
-                message: 'Tournament not found'
+                message: 'Tournament not found with id: ' + tournamentId
             })
         }
 
@@ -132,7 +141,7 @@ async function deleteTournamentById(req, res) {
 
         if(!tournaments) {
             return res.status(404).json({
-                message: 'Tournament not found'
+                message: 'Tournament not found with id: ' + tournamentId
             })
         }
 
