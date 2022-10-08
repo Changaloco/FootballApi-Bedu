@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const { createTournament, getTournaments, getTournamentById, updateTournamentById, deleteTournamentById } = require('../controllers/tournaments')
+const auth = require('../middlewares/auth');
 
 /**
  * @openapi
@@ -88,7 +89,7 @@ const { createTournament, getTournaments, getTournamentById, updateTournamentByI
  *                 error:
  *                  type: string
  */
-router.post('/', createTournament)
+router.post('/', auth.isAdmin, createTournament)
 
 
 // GET /tournaments
@@ -145,7 +146,7 @@ router.post('/', createTournament)
  *                 message:
  *                  type: string
  */
-router.get('/', getTournaments)
+router.get('/', auth.isAdmin, getTournaments)
 
 // GET /tournaments/:id_tournament
 // Get a tournament by id
@@ -203,7 +204,7 @@ router.get('/', getTournaments)
  *                 message:
  *                  type: string
  */
-router.get('/:id_tournament', getTournamentById)
+router.get('/:id_tournament', auth.isAdmin, getTournamentById)
 
 
 
@@ -300,7 +301,7 @@ router.get('/:id_tournament', getTournamentById)
  *                 error:
  *                  type: string
  */
-router.put('/:id_tournament', updateTournamentById)
+router.put('/:id_tournament', auth.isAdmin, updateTournamentById)
 
 // DELETE /tournaments/:id_tournament
 // Delete a tournament by id
@@ -341,6 +342,6 @@ router.put('/:id_tournament', updateTournamentById)
  *                 message:
  *                  type: string
  */
-router.delete('/:id_tournament', deleteTournamentById)
+router.delete('/:id_tournament', auth.isAdmin, deleteTournamentById)
 
 module.exports = router;

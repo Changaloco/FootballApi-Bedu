@@ -49,7 +49,7 @@ const auth = require('../middlewares/auth');
  *                  playerName:
  *                    type: string
  *                  playerSurname:
- *                    type: int
+ *                    type: string
  *                  birthDate:
  *                    type: date
  *                  position:
@@ -76,7 +76,7 @@ const auth = require('../middlewares/auth');
  *                 error:
  *                  type: string
  */
-router.post('/', createPlayer)
+router.post('/', auth.isAdmin, createPlayer)
 
 
 // GET /players
@@ -183,7 +183,7 @@ router.get('/',auth.isAdmin, getPlayers)
  *                 message:
  *                  type: string
  */
-router.get('/:id_player', getPlayerById)
+router.get('/:id_player', auth.isAdmin, getPlayerById)
 
 
 // PUT /players/:id_player
@@ -268,7 +268,7 @@ router.get('/:id_player', getPlayerById)
  *                 error:
  *                  type: string
  */
-router.put('/:id_player', updatePlayerById)
+router.put('/:id_player', auth.isAdmin, updatePlayerById)
 
 // DELETE /players/:id_player
 // Delete player by id
@@ -309,6 +309,6 @@ router.put('/:id_player', updatePlayerById)
  *                 message:
  *                  type: string
  */
-router.delete('/:id_player', deletePlayerById)
+router.delete('/:id_player', auth.isAdmin, deletePlayerById)
 
 module.exports = router;

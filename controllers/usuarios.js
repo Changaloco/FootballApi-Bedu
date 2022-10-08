@@ -1,6 +1,6 @@
 const Usuario = require("../models/Usuario");
 
-async function signIn(req, res) {
+async function signUp(req, res) {
   const body = req.body;
   try {
     const { salt, hash } = Usuario.createPassword(body.password);
@@ -50,6 +50,6 @@ async function logIn(req, res) {
 }
 
 module.exports = {
-  signIn,
+  signUp,
   logIn,
 }
