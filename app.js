@@ -12,21 +12,25 @@ const Usuario = require('./models/Usuario')
 const Player = require('./models/player')
 const Tournament = require('./models/tournament')
 
-
+const auth = require('./middlewares/auth');
 
 const app = express()
 app.use(express.json())
 
+app.use(auth.optional);
 app.use('/', routes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsDoc(options)))
 
-try {
-    sequelize.authenticate()
-    sequelize.sync()
-} catch (error) {
-    console.log(error)
-}
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)
 })
+
+try {
+    sequelize.authenticate()
+    sequelize.sync({
+        //force: true
+    })
+} catch (error) {
+    console.log(error)
+}

@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const players = require('./players')
 const tournaments = require('./tournaments')
+const usuarios = require('./usuarios');
 
  
 router.get('/', (req, res) => {
@@ -9,8 +10,9 @@ router.get('/', (req, res) => {
 });
 
 
-router.use('/players', players)
-router.use('/tournaments', tournaments)
+router.use('/players', players);
+router.use('/tournaments', tournaments);
+router.use('/usuarios', usuarios);
 
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { createPlayer, getPlayers, getPlayerById, updatePlayerById, deletePlayerById} = require('../controllers/players');
-
+const auth = require('../middlewares/auth');
 /**
  * @openapi
  * '/players':
@@ -129,7 +129,7 @@ router.post('/', createPlayer)
  *                 message:
  *                  type: string
  */
-router.get('/', getPlayers)
+router.get('/',auth.isAdmin, getPlayers)
 
 // GET /players/:id_player
 // Get player by id
