@@ -44,7 +44,7 @@ async function createTeam(req, res) {
       country,
       manager,
     });
-    return res.status(200).json({ team });
+    return res.status(201).json({ team });
   } catch (err) {
     if (
       ["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(

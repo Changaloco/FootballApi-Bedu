@@ -62,7 +62,7 @@ async function createSquad(req, res) {
       fk_player,
       fk_tournament,
     });
-    return res.status(200).json({ squad });
+    return res.status(201).json({ squad });
   } catch (err) {
     if (
       ["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(
