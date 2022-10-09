@@ -45,7 +45,7 @@ const auth = require("../middlewares/auth");
  *
  *     responses:
  *      201:
- *        description: Created tournament successfully
+ *        description: Created player successfully
  *        content:
  *          application/json:
  *            schema:
@@ -249,7 +249,6 @@ router.get("/:id_player", auth.isAdmin, getPlayerById);
  *                    type: date
  *                  position:
  *                    type: string
-
  * 
  *      409:
  *        description: Conflict

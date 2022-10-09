@@ -36,7 +36,7 @@ async function createMatch(req, res) {
   const body = req.body;
   try {
     const match = await Match.create(body);
-    return res.status(200).json({ match });
+    return res.status(201).json({ match });
   } catch (err) {
     if (
       ["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(
