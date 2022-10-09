@@ -13,6 +13,7 @@ const Match = sequelize.define(
     winner: {
       type: DataTypes.ENUM,
       values: ["home", "away", "draw"],
+      allowNull: true,
     },
     homeGoals: {
       type: DataTypes.INTEGER,

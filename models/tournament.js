@@ -33,12 +33,12 @@ const Tournament = sequelize.define(
 
     winner: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
 
     typeTournament: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
+      type: DataTypes.ENUM,
+      values: ["league", "cup"],
     },
   },
   {

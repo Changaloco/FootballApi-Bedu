@@ -35,14 +35,14 @@ async function getSquad(req, res) {
 }
 
 async function createSquad(req, res) {
-  const { position, number, id_team, id_player, id_tournament } = req.body;
+  const { position, number, fk_team, fk_player, fk_tournament } = req.body;
   try {
     const squad = await Squad.create({
       position,
       number,
-      id_team,
-      id_player,
-      id_tournament,
+      fk_team,
+      fk_player,
+      fk_tournament,
     });
     return res.status(200).json({ squad });
   } catch (err) {

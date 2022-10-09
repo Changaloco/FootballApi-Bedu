@@ -164,6 +164,17 @@ async function deleteTournamentById(req, res) {
   }
 }
 
+async function getTournamentTeams(req, res) {
+  const idTournamen = req.params.id;
+  try {
+  } catch (err) {
+    return res.status(500).json({
+      message: "Internal server error",
+      data: err,
+    });
+  }
+}
+
 module.exports = {
   createTournament,
   getTournaments,

@@ -32,6 +32,7 @@ try {
   sequelize.authenticate();
   sequelize.sync({
     //force: true,
+    //alter: true
   });
 } catch (error) {
   console.log(error);
