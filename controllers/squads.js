@@ -68,14 +68,14 @@ async function getSquad(req, res) {
 }
 
 async function createSquad(req, res) {
-  const { position, number, fk_team, fk_player, fk_tournament } = req.body;
+  const { position, number, id_team, id_player, id_tournament } = req.body;
   try {
     const squad = await Squad.create({
       position,
       number,
-      fk_team,
-      fk_player,
-      fk_tournament,
+      id_team,
+      id_player,
+      id_tournament,
     });
     return res.status(201).json({ squad });
   } catch (err) {
@@ -95,14 +95,20 @@ async function createSquad(req, res) {
 
 async function editSquad(req, res) {
   const idSquad = req.params.id;
-  const body = req.body;
+  const {position, number, id_team, id_player, id_tournament} = req.body;
   const squad = await Squad.findByPk(idSquad);
   if (!squad) {
     return res.status(404).json({
       message: "Squad not found",
     });
   }
-  await squad.update(body);
+  await squad.update({
+    position,
+    number,
+    id_team,
+    id_player,
+    id_tournament
+  });
   res.status(200).json({
     squad,
   });
@@ -178,7 +184,7 @@ async function getSquadTeamTournaments(req, res) {
   const idTeam = req.params.id;
   try {
     const squad = await Squad.findAll({
-      attributes: ["id_tournament"],
+      attributes: ["id_squad", "fk_team"],
       where: {
         fk_team: idTeam,
       },
@@ -187,10 +193,11 @@ async function getSquadTeamTournaments(req, res) {
           model: Tournament,
           required: true,
           attributes: [
+            "id_tournament",
             "tournamentName",
             "year",
-            "typeTournament",
-            "id_tournament",
+            "typeTournament"
+            
           ],
         },
       ],

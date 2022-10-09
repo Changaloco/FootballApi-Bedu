@@ -66,10 +66,27 @@ async function getMatch(req, res) {
   }
 }
 async function createMatch(req, res) {
-  const body = req.body;
+  const { winner, homeGoals, awayGoals, matchDate, id_home, id_away, id_tournament } = req.body;
   try {
-    const match = await Match.create(body);
-    return res.status(201).json({ match });
+    const match = await Match.create({
+      winner,
+      homeGoals,
+      awayGoals,
+      matchDate,
+      id_home,
+      id_away,
+      id_tournament
+      });
+    return res.status(201).json({ 
+      id_match: match.id_match,
+      winner,
+      homeGoals,
+      awayGoals,
+      matchDate,
+      id_home,
+      id_away,
+      id_tournament
+     });
   } catch (err) {
     if (
       ["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(
@@ -86,7 +103,7 @@ async function createMatch(req, res) {
 }
 async function editMatches(req, res) {
   const idMatch = req.params.id;
-  const body = req.body;
+  const { winner, homeGoals, awayGoals, matchDate, id_home, id_away, id_tournament } = req.body;
   try {
     const match = await Match.findByPk(idMatch);
     if (!match) {
@@ -94,7 +111,15 @@ async function editMatches(req, res) {
         message: "Match not found",
       });
     }
-    const updatedMatch = await match.update(body);
+    const updatedMatch = await match.update({
+      winner,
+      homeGoals,
+      awayGoals,
+      matchDate,
+      id_home,
+      id_away,
+      id_tournament
+    });
     return res.status(200).json({ updatedMatch });
   } catch (err) {
     if (
@@ -140,15 +165,7 @@ async function getMatchesByTournament(req, res) {
         {
           model: Tournament,
           required: true,
-        },
-        {
-          model: Team,
-          as: "home",
-        },
-        {
-          model: Team,
-          as: "away",
-        },
+        }
       ],
     });
     return res.status(200).json({
