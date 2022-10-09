@@ -1,22 +1,55 @@
+const {Op} = require('sequelize');
 const Match = require("../models/Match");
+const Team = require("../models/Team");
+const Tournament = require("../models/Tournament");
 
 async function getMatches(req, res) {
   try {
-    const matches = await Match.findAll();
+    const matches = await Match.findAll({
+      include: [
+        {
+          model: Tournament,
+          required: true,
+        },
+        {
+          model: Team,
+          as: "home",
+        },
+        {
+          model: Team,
+          as: "away",
+        },
+      ],
+    });
     return res.status(200).json({
       matches,
     });
   } catch (err) {
     return res.status(404).json({
       message: "Something goes wrong",
-      data: { err },
+      data: err.message,
     });
   }
 }
 async function getMatch(req, res) {
   const idMatch = req.params.id;
   try {
-    const match = await Match.findByPk(idMatch);
+    const match = await Match.findByPk(idMatch, {
+      include: [
+        {
+          model: Tournament,
+          required: true,
+        },
+        {
+          model: Team,
+          as: "home",
+        },
+        {
+          model: Team,
+          as: "away",
+        },
+      ],
+    });
     if (!match) {
       return res.status(404).json({
         message: "Match not found",
@@ -33,10 +66,27 @@ async function getMatch(req, res) {
   }
 }
 async function createMatch(req, res) {
-  const body = req.body;
+  const { winner, homeGoals, awayGoals, matchDate, id_home, id_away, id_tournament } = req.body;
   try {
-    const match = await Match.create(body);
-    return res.status(201).json({ match });
+    const match = await Match.create({
+      winner,
+      homeGoals,
+      awayGoals,
+      matchDate,
+      id_home,
+      id_away,
+      id_tournament
+      });
+    return res.status(201).json({ 
+      id_match: match.id_match,
+      winner,
+      homeGoals,
+      awayGoals,
+      matchDate,
+      id_home,
+      id_away,
+      id_tournament
+     });
   } catch (err) {
     if (
       ["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(
@@ -53,7 +103,7 @@ async function createMatch(req, res) {
 }
 async function editMatches(req, res) {
   const idMatch = req.params.id;
-  const body = req.body;
+  const { winner, homeGoals, awayGoals, matchDate, id_home, id_away, id_tournament } = req.body;
   try {
     const match = await Match.findByPk(idMatch);
     if (!match) {
@@ -61,7 +111,15 @@ async function editMatches(req, res) {
         message: "Match not found",
       });
     }
-    const updatedMatch = await match.update(body);
+    const updatedMatch = await match.update({
+      winner,
+      homeGoals,
+      awayGoals,
+      matchDate,
+      id_home,
+      id_away,
+      id_tournament
+    });
     return res.status(200).json({ updatedMatch });
   } catch (err) {
     if (
@@ -95,6 +153,67 @@ async function deleteMatch(req, res) {
     });
   }
 }
+//Obtiene todos los partidos que se realizaron dentro de un torneo
+async function getMatchesByTournament(req, res) {
+  const idTournament = req.params.id;
+  try {
+    const matches = await Match.findAll({
+      where: {
+        id_tournament: idTournament,
+      },
+      include: [
+        {
+          model: Tournament,
+          required: true,
+        }
+      ],
+    });
+    return res.status(200).json({
+      matches,
+    });
+  } catch (err) {
+    return res.status(404).json({
+      message: "Something goes wrong",
+      data: err.message,
+    });
+  }
+}
+//Obtiene los partidos que ha jugado un equipo como local y visitante
+async function getMatchesByTeam(req,res){
+  const idTeam = req.params.id;
+  try {
+    const matches = await Match.findAll({
+      where: {
+        [Op.or]: [
+          { id_home: idTeam },
+          { id_away: idTeam },
+        ],
+      },
+      include: [
+        {
+          model: Tournament,
+          required: true,
+        },
+        {
+          model: Team,
+          as: "home",
+        },
+        {
+          model: Team,
+          as: "away",
+        },
+      ],
+    });
+    return res.status(200).json({
+      matches,
+    });
+  } catch (err) {
+    return res.status(404).json({
+      message: "Something goes wrong",
+      data: err.message,
+    });
+  }
+}
 
 module.exports = {
   getMatches,
@@ -102,4 +221,6 @@ module.exports = {
   createMatch,
   editMatches,
   deleteMatch,
+  getMatchesByTournament,
+  getMatchesByTeam
 };

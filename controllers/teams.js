@@ -111,10 +111,12 @@ async function deleteTeam(req, res) {
   }
 }
 
+
+
 module.exports = {
   getTeam,
   getTeams,
   createTeam,
   editTeam,
-  deleteTeam,
+  deleteTeam
 };

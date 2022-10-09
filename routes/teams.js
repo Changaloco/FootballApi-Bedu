@@ -5,7 +5,7 @@ const {
   getTeams,
   createTeam,
   editTeam,
-  deleteTeam,
+  deleteTeam
 } = require("../controllers/teams");
 
 

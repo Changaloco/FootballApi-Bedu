@@ -6,6 +6,7 @@ const {
   getTournamentById,
   updateTournamentById,
   deleteTournamentById,
+  getTournamentTeams,
 } = require("../controllers/tournaments");
 const auth = require("../middlewares/auth");
 
@@ -37,7 +38,7 @@ const auth = require("../middlewares/auth");
  *                type: string
  *                default: 'Champions League'
  *              year:
- *                type: int
+ *                type: integer
  *                default: 2020
  *              startDate:
  *                type: date
@@ -64,7 +65,7 @@ const auth = require("../middlewares/auth");
  *                  tournamentName:
  *                    type: string
  *                  year:
- *                    type: int
+ *                    type: integer
  *                  startDate:
  *                    type: date
  *                  endDate:
@@ -124,7 +125,7 @@ router.post("/", auth.isAdmin, createTournament);
  *                  tournamentName:
  *                    type: string
  *                  year:
- *                    type: int
+ *                    type: integer
  *                  startDate:
  *                    type: date
  *                  endDate:
@@ -182,7 +183,7 @@ router.get("/", auth.isAdmin, getTournaments);
  *                  tournamentName:
  *                    type: string
  *                  year:
- *                    type: int
+ *                    type: integer
  *                  startDate:
  *                    type: date
  *                  endDate:
@@ -246,7 +247,7 @@ router.get("/:id_tournament", auth.isAdmin, getTournamentById);
  *                type: string
  *                default: 'Champions League'
  *              year:
- *                type: int
+ *                type: integer
  *                default: 2020
  *              startDate:
  *                type: date
@@ -273,7 +274,7 @@ router.get("/:id_tournament", auth.isAdmin, getTournamentById);
  *                  tournamentName:
  *                    type: string
  *                  year:
- *                    type: int
+ *                    type: integer
  *                  startDate:
  *                    type: date
  *                  endDate:

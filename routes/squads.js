@@ -6,6 +6,8 @@ const {
   createSquad,
   editSquad,
   deleteSquad,
+  getTeamSquad,
+  getSquadTeamTournaments,
 } = require("../controllers/squads");
 
 // GET /squads
@@ -35,13 +37,13 @@ const {
  *                  position:
  *                    type: string
  *                  number:
- *                    type: int
- *                  fk_team:
- *                    type: int
- *                  fk_player:
- *                    type: int
- *                  fk_tournament:
- *                    type: int
+ *                    type: integer
+ *                  id_team:
+ *                    type: integer
+ *                  id_player:
+ *                    type: integer
+ *                  id_tournament:
+ *                    type: integer
  *       400:
  *         description: Bad request
  *         content:
@@ -91,13 +93,13 @@ router.get("/", auth.isAdmin, getSquads)
  *                  position:
  *                    type: string
  *                  number:
- *                    type: int
- *                  fk_team:
- *                    type: int
- *                  fk_player:
- *                    type: int
- *                  fk_tournament:
- *                    type: int
+ *                    type: integer
+ *                  id_team:
+ *                    type: integer
+ *                  id_player:
+ *                    type: integer
+ *                  id_tournament:
+ *                    type: integer
  *       404:
  *         description: Not found
  *         content:
@@ -139,24 +141,24 @@ router.get("/:id", auth.isAdmin, getSquad)
  *            required:
  *              - position
  *              - number
- *              - fk_team
- *              - fk_player
- *              - fk_tournament
+ *              - id_team
+ *              - id_player
+ *              - id_tournament
  *            properties:
  *              position:
- *                type: enum
+ *                type: string
  *                default: "GK"
  *              number:
- *                type: int
+ *                type: integer
  *                default: 1
- *              fk_team:
- *                type: int
+ *              id_team:
+ *                type: integer
  *                default: 1
- *              fk_player:
- *                type: int
+ *              id_player:
+ *                type: integer
  *                default: 1
- *              fk_tournament:
- *                type: int
+ *              id_tournament:
+ *                type: integer
  *                default: 1
  *
  *     responses:
@@ -169,15 +171,15 @@ router.get("/:id", auth.isAdmin, getSquad)
  *                  id_squad:
  *                    type: number
  *                  position:
- *                    type: enum
+ *                    type: string
  *                  number:
- *                    type: int
- *                  fk_team:
- *                    type: int
- *                  fk_player:
- *                    type: int
- *                  fk_tournament:
- *                    type: int
+ *                    type: integer
+ *                  id_team:
+ *                    type: integer
+ *                  id_player:
+ *                    type: integer
+ *                  id_tournament:
+ *                    type: integer
  *
  *      409:
  *        description: Conflict
@@ -229,24 +231,24 @@ router.post("/", auth.isAdmin, createSquad)
  *            required:
  *              - position
  *              - number
- *              - fk_team
- *              - fk_player
- *              - fk_tournament
+ *              - id_team
+ *              - id_player
+ *              - id_tournament
  *            properties:
  *              position:
- *                type: enum
+ *                type: string
  *                default: "GK"
  *              number:
- *                type: int
+ *                type: integer
  *                default: 1
- *              fk_team:
- *                type: int
+ *              id_team:
+ *                type: integer
  *                default: 1
- *              fk_player:
- *                type: int
+ *              id_player:
+ *                type: integer
  *                default: 1
- *              fk_tournament:
- *                type: int
+ *              id_tournament:
+ *                type: integer
  *                default: 1
  *              
  *     responses:
@@ -259,15 +261,15 @@ router.post("/", auth.isAdmin, createSquad)
  *                  id_squad:
  *                    type: number
  *                  position:
- *                    type: enum
+ *                    type: string
  *                  number:
- *                    type: int
- *                  fk_team:
- *                    type: int
- *                  fk_player:
- *                    type: int
- *                  fk_tournament:
- *                    type: int
+ *                    type: integer
+ *                  id_team:
+ *                    type: integer
+ *                  id_player:
+ *                    type: integer
+ *                  id_tournament:
+ *                    type: integer
  * 
  *      409:
  *        description: Conflict
@@ -335,4 +337,136 @@ router.patch("/:id", auth.isAdmin, editSquad)
  */
 router.delete("/:id", auth.isAdmin, deleteSquad)
 
+
+// GET /squads/team/:id_team
+// Get squads by team id
+/**
+ * @openapi
+ * '/squads/teams/{id_team}':
+ *  get:
+ *     security:
+ *       - Authorization: []
+ *     tags:
+ *     - Squads
+ *     summary: Get squads by team id
+ *     description: Get squads by team id from database
+ *     parameters:
+ *        - name: id_team
+ *          in: path
+ *          description: Id of the team
+ *          required: true
+ *     responses:
+ *       200:
+ *         description: Success get squads
+ *         content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                  id_squad:
+ *                    type: number
+ *                  position:
+ *                    type: string
+ *                  number:
+ *                    type: integer
+ *                  id_team:
+ *                    type: integer
+ *                  id_player:
+ *                    type: integer
+ *                  id_tournament:
+ *                    type: integer
+ *                  Player:
+ *                    type: object
+ *                    properties:
+ *                     id_player:
+ *                      type: number
+ *                     playerName:
+ *                      type: string
+ *                     playerSurname:
+ *                      type: string
+ *                     birthDate:
+ *                      type: date
+ *       404:
+ *         description: Not found
+ *         content:
+ *          application/json:
+ *           schema:
+ *              properties:
+ *                 message:
+ *                  type: string
+ *
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *              properties:
+ *                 message:
+ *                  type: string
+ */
+router.get("/teams/:id", auth.isAdmin, getTeamSquad);
+
+// GET /squads/teams/tournaments/:id
+// Get squads by team id and tournament id
+/**
+ * @openapi
+ * '/squads/teams/tournaments/{id_team}':
+ *  get:
+ *     security:
+ *       - Authorization: []
+ *     tags:
+ *     - Squads
+ *     summary: Get squads by team id and tournament id
+ *     description: Get squads by team id and tournament from database
+ *     parameters:
+ *        - name: id_team
+ *          in: path
+ *          description: Id of the team
+ *          required: true
+ *     responses:
+ *       200:
+ *         description: Success get squads
+ *         content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                  id_squad:
+ *                    type: number
+ *                  fk_team:
+ *                    type: integer
+ *                  Tournament:
+ *                    type: object
+ *                    properties:
+ *                     id_tournament:
+ *                      type: number
+ *                     tournamentName:
+ *                      type: string
+ *                     year:
+ *                      type: integer
+ *                     typeTournament:
+ *                      type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *          application/json:
+ *           schema:
+ *              properties:
+ *                 message:
+ *                  type: string
+ *
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *              properties:
+ *                 message:
+ *                  type: string
+ */
+router.get("/teams/tournaments/:id", auth.isAdmin, getSquadTeamTournaments);
 module.exports = router;

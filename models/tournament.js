@@ -32,13 +32,20 @@ const Tournament = sequelize.define(
     },
 
     winner: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNull: true,
     },
 
     typeTournament: {
-      type: DataTypes.ENUM,
-      values: ["league", "cup"],
+      type: DataTypes.STRING,
+      validate: {
+        customValidator: (value) => {
+            const enums = ['league', 'coup']
+            if (!enums.includes(value)) {
+                throw new Error('not a valid option')
+            }
+        }
+    }
     },
   },
   {

@@ -25,11 +25,6 @@ const Player = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-
-    position: {
-      type: DataTypes.ENUM,
-      values: ["goalkeeper", "defender", "midfielder", "striker"],
-    },
   },
   {
     freezeTableName: true,

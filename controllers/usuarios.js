@@ -1,4 +1,5 @@
 const Usuario = require("../models/Usuario");
+const {Op} = require('sequelize');
 
 async function signUp(req, res) {
   const body = req.body;
@@ -34,8 +35,12 @@ async function signUp(req, res) {
 async function logIn(req, res) {
   const body = req.body;
   const user = await Usuario.findOne({
-    where: { email: body.username },
-    $or: [{ username: body.username }],
+    where: {
+      [Op.or]: [
+        { username: body.username },
+        { email: body.username },
+      ],
+    },
   });
   if (!user) {
     return res.status(404).json({ error: "Usuario no encontrado" });
