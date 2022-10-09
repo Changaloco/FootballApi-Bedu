@@ -16,7 +16,6 @@ Proyecto de Backend Fundamentals.
 
 * Gonzalo Olvera[![Web](https://img.shields.io/badge/GitHub-olvera93-14a1f0?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/olvera93)<br>
 
-* Oscar Glz [![Web](https://img.shields.io/badge/GitHub-oscar13g-14a1f0?style=for-the-badge&logo=github&logoColor=white&labelColor=101010)](https://github.com/oscar13g)<br>
 
 ### 🔧 Tecnologías usadas
 
