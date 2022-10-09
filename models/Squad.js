@@ -8,29 +8,12 @@ const Squad = sequelize.define("Squad", {
     primaryKey: true,
     autoIncrement: true,
   },
-  tournamentName: {
+  position: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  year: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  startDate: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  endDate: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  winner: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  typeTournament: {
-    type: DataTypes.ENUM,
-    values: ["torneo", "liga"],
+  number: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   fk_team: {

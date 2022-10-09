@@ -104,17 +104,10 @@ async function deleteTeam(req, res) {
       message: "Team deleted successfully",
     });
   } catch (err) {
-    if (
-      ["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(
-        err.name
-      )
-    ) {
-      return res.status(400).json({
-        error: err.errors.map((e) => e.message),
-      });
-    } else {
-      throw err;
-    }
+    return res.status(500).json({
+      message: 'Internal server error',
+      data:err
+  })
   }
 }
 
