@@ -5,6 +5,10 @@
 
 Proyecto de Backend Fundamentals.
 
+### Tablero Trello
+
+* En el siguiente enlace se muestra nuestro tablero de trello en donde se encuentran las actividades de cada integrante [Trello](https://trello.com/invite/b/ixMKuQEV/caa8e7cc3974c95788b57418c18c1c2a/footballapi)
+
 ### *Integrantes*
 
 
