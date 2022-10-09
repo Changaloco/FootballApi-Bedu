@@ -5,7 +5,22 @@ const Tournament = require("../models/Tournament");
 
 async function getSquads(req, res) {
   try {
-    const squads = await Squad.findAll();
+    const squads = await Squad.findAll({
+      include: [
+        {
+          model: Player,
+          required: true,
+        },
+        {
+          model: Team,
+          required: true,
+        },
+        {
+          model: Tournament,
+          required: true,
+        },
+      ],
+    });
     return res.status(200).json({
       squads,
     });

@@ -10,10 +10,6 @@ const {
   getMatchesByTeam
 } = require("../controllers/matches");
 
-router.get("/tournament/:id", getMatchesByTournament);
-router.get("/team/:id", getMatchesByTeam);
-
-
 // GET /matches
 // Get all matches
 /**
@@ -371,4 +367,6 @@ router.patch("/:id", auth.isAdmin, editMatches);
  */
 router.delete("/:id", auth.isAdmin, deleteMatch);
 
+router.get("/tournament/:id", getMatchesByTournament);
+router.get("/team/:id", getMatchesByTeam);
 module.exports = router;
