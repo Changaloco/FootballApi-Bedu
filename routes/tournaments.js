@@ -1,23 +1,24 @@
 const router = require("express").Router();
 
 const {
-  createPlayer,
-  getPlayers,
-  getPlayerById,
-  updatePlayerById,
-  deletePlayerById,
-} = require("../controllers/players");
+  createTournament,
+  getTournaments,
+  getTournamentById,
+  updateTournamentById,
+  deleteTournamentById,
+} = require("../controllers/tournaments");
 const auth = require("../middlewares/auth");
+
 /**
  * @openapi
- * '/players':
+ * '/tournaments':
  *  post:
  *     security:
  *       - Authorization: []
  *     tags:
- *     - Players
- *     summary: Create a player
- *     description: Create a new player in the database
+ *     - Tournaments
+ *     summary: Create a tournament
+ *     description: Create a new tournament in the database
  *     requestBody:
  *      required: true
  *      content:
@@ -25,40 +26,52 @@ const auth = require("../middlewares/auth");
  *           schema:
  *            type: object
  *            required:
- *              - playerName
- *              - playerSurname
- *              - birthDate
- *              - position
+ *              - tournamentName
+ *              - year
+ *              - startDate
+ *              - endDate
+ *              - winner
+ *              - typeTournament
  *            properties:
- *              playerName:
+ *              tournamentName:
  *                type: string
- *                default: 'Lionel'
- *              playerSurname:
- *                type: string
- *                default: 'Messi'
- *              birthDate:
+ *                default: 'Champions League'
+ *              year:
+ *                type: int
+ *                default: 2020
+ *              startDate:
  *                type: date
- *                default: '1987-06-24'
- *              position:
+ *                default: '2020-09-01'
+ *              endDate:
+ *                type: date
+ *                default: '2020-12-01'
+ *              winner:
  *                type: string
- *                default: 'Forward'
+ *                default: 'Real Madrid'
+ *              typeTournament:
+ *                type: string
+ *                default: 'International'
  *
  *     responses:
  *      201:
- *        description: Created player successfully
+ *        description: Created tournament successfully
  *        content:
  *          application/json:
  *            schema:
  *               properties:
- *                  id_player:
+ *                  id_tournament:
  *                    type: number
- *                  playerName:
+ *                  tournamentName:
  *                    type: string
- *                  playerSurname:
- *                    type: string
- *                  birthDate:
+ *                  year:
+ *                    type: int
+ *                  startDate:
  *                    type: date
- *                  position:
+ *                  endDate:
+ *                    type: date
+ *                  winner:
+ *                    type: string
+ *                  typeTournament:
  *                    type: string
  *
  *      409:
@@ -82,23 +95,23 @@ const auth = require("../middlewares/auth");
  *                 error:
  *                  type: string
  */
-router.post("/", auth.isAdmin, createPlayer);
+router.post("/", auth.isAdmin, createTournament);
 
-// GET /players
-// Get all players
+// GET /tournaments
+// Get all tournaments
 /**
  * @openapi
- * '/players':
+ * '/tournaments':
  *  get:
  *     security:
  *       - Authorization: []
  *     tags:
- *     - Players
- *     summary: Get all players
- *     description: Get all players from database
+ *     - Tournaments
+ *     summary: Get all tournaments
+ *     description: Get all tournaments from database
  *     responses:
  *       200:
- *         description: Success
+ *         description: Success return all tournaments
  *         content:
  *          application/json:
  *            schema:
@@ -106,15 +119,19 @@ router.post("/", auth.isAdmin, createPlayer);
  *              items:
  *                type: object
  *                properties:
- *                  id_player:
+ *                  id_tournament:
  *                    type: number
- *                  playerName:
+ *                  tournamentName:
  *                    type: string
- *                  playerSurname:
- *                    type: string
- *                  birthDate:
+ *                  year:
+ *                    type: int
+ *                  startDate:
  *                    type: date
- *                  position:
+ *                  endDate:
+ *                    type: date
+ *                  winner:
+ *                    type: string
+ *                  typeTournament:
  *                    type: string
  *       400:
  *         description: Bad request
@@ -134,41 +151,45 @@ router.post("/", auth.isAdmin, createPlayer);
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getPlayers);
+router.get("/", auth.isAdmin, getTournaments);
 
-// GET /players/:id_player
-// Get player by id
+// GET /tournaments/:id_tournament
+// Get a tournament by id
 /**
  * @openapi
- * '/players/{id_player}':
+ * '/tournaments/{id_tournament}':
  *  get:
  *     security:
  *       - Authorization: []
  *     tags:
- *     - Players
- *     summary: Get a player by id
- *     description: Get a player if exists in the database
+ *     - Tournaments
+ *     summary: Get a tournament by id
+ *     description: Get a tournament by id
  *     parameters:
- *        - name: id_player
+ *        - name: id_tournament
  *          in: path
- *          description: Id of the player
+ *          description: Id of the tournament
  *          required: true
  *     responses:
  *       200:
- *         description: Success return a player
+ *         description: Success return a tournament
  *         content:
  *          application/json:
  *            schema:
  *               properties:
- *                  id_player:
+ *                  id_tournament:
  *                    type: number
- *                  playerName:
+ *                  tournamentName:
  *                    type: string
- *                  playerSurname:
- *                    type: string
- *                  birthDate:
+ *                  year:
+ *                    type: int
+ *                  startDate:
  *                    type: date
- *                  position:
+ *                  endDate:
+ *                    type: date
+ *                  winner:
+ *                    type: string
+ *                  typeTournament:
  *                    type: string
  *       404:
  *         description: Not found
@@ -188,24 +209,24 @@ router.get("/", auth.isAdmin, getPlayers);
  *                 message:
  *                  type: string
  */
-router.get("/:id_player", auth.isAdmin, getPlayerById);
+router.get("/:id_tournament", auth.isAdmin, getTournamentById);
 
-// PUT /players/:id_player
-// Update player by id
+// PUT /tournaments/:id_tournament
+// Update a tournament by id
 /**
  * @openapi
- * '/players/{id_player}':
+ * '/tournaments/{id_tournament}':
  *  put:
  *     security:
  *       - Authorization: []
  *     tags:
- *     - Players
- *     summary: Update a player
- *     description: Update a player if exists by id from database
+ *     - Tournaments
+ *     summary: Update a tournament
+ *     description: Update a tournament if exists by id from database
  *     parameters:
- *        - name: id_player
+ *        - name: id_tournament
  *          in: path
- *          description: Id of the id_player
+ *          description: Id of the tournament
  *          required: true
  *     requestBody:
  *      required: true
@@ -214,42 +235,54 @@ router.get("/:id_player", auth.isAdmin, getPlayerById);
  *           schema:
  *            type: object
  *            required:
- *              - playerName
- *              - playerSurname
- *              - birthDate
- *              - position
+ *              - tournamentName
+ *              - year
+ *              - startDate
+ *              - endDate
+ *              - winner
+ *              - typeTournament
  *            properties:
- *              playerName:
+ *              tournamentName:
  *                type: string
- *                default: 'Lionel'
- *              playerSurname:
- *                type: string
- *                default: 'Messi'
- *              birthDate:
+ *                default: 'Champions League'
+ *              year:
+ *                type: int
+ *                default: 2020
+ *              startDate:
  *                type: date
- *                default: '1987-06-24'
- *              position:
+ *                default: '2020-09-01'
+ *              endDate:
+ *                type: date
+ *                default: '2020-12-01'
+ *              winner:
  *                type: string
- *                default: 'Forward'
- *              
+ *                default: 'Real Madrid'
+ *              typeTournament:
+ *                type: string
+ *                default: 'International'
+ *
  *     responses:
  *      200:
- *        description: Updated player successfully
+ *        description: Updated tournament successfully
  *        content:
  *          application/json:
  *            schema:
  *               properties:
- *                  id_player:
+ *                  id_tournament:
  *                    type: number
- *                  playerName:
+ *                  tournamentName:
  *                    type: string
- *                  playerSurname:
- *                    type: string
- *                  birthDate:
+ *                  year:
+ *                    type: int
+ *                  startDate:
  *                    type: date
- *                  position:
+ *                  endDate:
+ *                    type: date
+ *                  winner:
  *                    type: string
- * 
+ *                  typeTournament:
+ *                    type: string
+ *
  *      409:
  *        description: Conflict
  *        content:
@@ -271,24 +304,24 @@ router.get("/:id_player", auth.isAdmin, getPlayerById);
  *                 error:
  *                  type: string
  */
-router.put("/:id_player", auth.isAdmin, updatePlayerById);
+router.put("/:id_tournament", auth.isAdmin, updateTournamentById);
 
-// DELETE /players/:id_player
-// Delete player by id
+// DELETE /tournaments/:id_tournament
+// Delete a tournament by id
 /**
  * @openapi
- * '/players/{id_player}':
+ * '/tournaments/{id_tournament}':
  *  delete:
  *     security:
  *       - Authorization: []
  *     tags:
- *     - Players
- *     summary: Delete a player by id
- *     description: Delete a player if exists by id from database
+ *     - Tournaments
+ *     summary: Delete a tournament by id
+ *     description: Delete a tournament if exists by id from database
  *     parameters:
- *        - name: id_player
+ *        - name: id_tournament
  *          in: path
- *          description: Id of the player
+ *          description: Id of the tournament
  *          required: true
  *     responses:
  *       204:
@@ -312,6 +345,6 @@ router.put("/:id_player", auth.isAdmin, updatePlayerById);
  *                 message:
  *                  type: string
  */
-router.delete("/:id_player", auth.isAdmin, deletePlayerById);
+router.delete("/:id_tournament", auth.isAdmin, deleteTournamentById);
 
 module.exports = router;

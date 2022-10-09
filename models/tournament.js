@@ -1,34 +1,44 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 
-const Player = sequelize.define(
-  "Player",
+const Tournament = sequelize.define(
+  "Tournament",
   {
-    id_player: {
+    id_tournament: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
 
-    playerName: {
+    tournamentName: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
 
-    playerSurname: {
-      type: DataTypes.STRING(50),
+    year: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 
-    birthDate: {
+    startDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
 
-    position: {
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+
+    winner: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+    },
+
+    typeTournament: {
       type: DataTypes.ENUM,
-      values: ["goalkeeper", "defender", "midfielder", "striker"],
+      values: ["league", "cup"],
     },
   },
   {
@@ -37,4 +47,4 @@ const Player = sequelize.define(
   }
 );
 
-module.exports = Player;
+module.exports = Tournament;
