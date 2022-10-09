@@ -1,38 +1,40 @@
-const { Sequelize, DataTypes } = require('sequelize')
-const sequelize = require('../config/db')
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
 
-const Player = sequelize.define('Player', {
+const Player = sequelize.define(
+  "Player",
+  {
     id_player: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
     },
 
     playerName: {
-        type: DataTypes.STRING(50),
-        allowNull: false
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
 
     playerSurname: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-        unique: true
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
 
     birthDate: {
-        type: DataTypes.DATE,
-        allowNull: false
+      type: DataTypes.DATE,
+      allowNull: false,
     },
 
     position: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    }
-},{
+      type: DataTypes.ENUM,
+      values: ["goalkeeper", "defender", "midfielder", "striker"],
+    },
+  },
+  {
     freezeTableName: true,
     timestamps: false,
-  })
+  }
+);
 
-
-module.exports = Player
+module.exports = Player;
