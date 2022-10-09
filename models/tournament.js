@@ -38,7 +38,10 @@ const Tournament = sequelize.define('Tournament', {
         type: DataTypes.STRING(50),
         allowNull: false
     }
-})
+},{
+    freezeTableName: true,
+    timestamps: false,
+  })
     
 
 module.exports = Tournament

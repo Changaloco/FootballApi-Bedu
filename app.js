@@ -10,7 +10,11 @@ const swaggerUi = require('swagger-ui-express')
 
 const Usuario = require('./models/Usuario')
 const Player = require('./models/player')
+const Team = require('./models/Team')
 const Tournament = require('./models/tournament')
+const Squad = require('./models/Squad')
+const Match = require('./models/Match')
+
 
 const auth = require('./middlewares/auth');
 
