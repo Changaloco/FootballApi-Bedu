@@ -1,5 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
+const Team = require("./Team");
+const Tournament = require("./Tournament");
 
 const Match = sequelize.define(
   "Match",
@@ -11,9 +13,16 @@ const Match = sequelize.define(
       autoIncrement: true,
     },
     winner: {
-      type: DataTypes.ENUM,
-      values: ["home", "away", "draw"],
+      type: DataTypes.STRING,
       allowNull: true,
+      validate: {
+        customValidator: (value) => {
+            const enums = ['home', 'away', 'draw']
+            if (!enums.includes(value)) {
+                throw new Error('not a valid option')
+            }
+        }
+    }
     },
     homeGoals: {
       type: DataTypes.INTEGER,
@@ -57,5 +66,13 @@ const Match = sequelize.define(
     timestamps: false,
   }
 );
+
+Match.belongsTo(Tournament, {foreignKey: 'id_tournament'});
+Tournament.hasMany(Match, {foreignKey: 'id_tournament'});
+
+Match.belongsTo(Team, {foreignKey: 'id_home', as: 'home'});
+Team.hasMany(Match, {foreignKey: 'id_home', as: 'home'});
+Match.belongsTo(Team, {foreignKey: 'id_away', as: 'away'});
+Team.hasMany(Match, {foreignKey: 'id_away', as: 'away'});
 
 module.exports = Match;

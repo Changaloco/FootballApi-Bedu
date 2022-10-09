@@ -46,8 +46,15 @@ const Usuario = sequelize.define(
       allowNull: true,
     },
     type: {
-      type: DataTypes.ENUM,
-      values: ["admin", "user"],
+      type: DataTypes.STRING,
+      validate: {
+        customValidator: (value) => {
+            const enums = ['user', 'admin']
+            if (!enums.includes(value)) {
+                throw new Error('not a valid option')
+            }
+        }
+    }
     },
   },
   {

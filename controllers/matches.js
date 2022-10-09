@@ -1,22 +1,55 @@
+const {Op} = require('sequelize');
 const Match = require("../models/Match");
+const Team = require("../models/Team");
+const Tournament = require("../models/Tournament");
 
 async function getMatches(req, res) {
   try {
-    const matches = await Match.findAll();
+    const matches = await Match.findAll({
+      include: [
+        {
+          model: Tournament,
+          required: true,
+        },
+        {
+          model: Team,
+          as: "home",
+        },
+        {
+          model: Team,
+          as: "away",
+        },
+      ],
+    });
     return res.status(200).json({
       matches,
     });
   } catch (err) {
     return res.status(404).json({
       message: "Something goes wrong",
-      data: { err },
+      data: err.message,
     });
   }
 }
 async function getMatch(req, res) {
   const idMatch = req.params.id;
   try {
-    const match = await Match.findByPk(idMatch);
+    const match = await Match.findByPk(idMatch, {
+      include: [
+        {
+          model: Tournament,
+          required: true,
+        },
+        {
+          model: Team,
+          as: "home",
+        },
+        {
+          model: Team,
+          as: "away",
+        },
+      ],
+    });
     if (!match) {
       return res.status(404).json({
         message: "Match not found",
@@ -95,6 +128,75 @@ async function deleteMatch(req, res) {
     });
   }
 }
+//Obtiene todos los partidos que se realizaron dentro de un torneo
+async function getMatchesByTournament(req, res) {
+  const idTournament = req.params.id;
+  try {
+    const matches = await Match.findAll({
+      where: {
+        id_tournament: idTournament,
+      },
+      include: [
+        {
+          model: Tournament,
+          required: true,
+        },
+        {
+          model: Team,
+          as: "home",
+        },
+        {
+          model: Team,
+          as: "away",
+        },
+      ],
+    });
+    return res.status(200).json({
+      matches,
+    });
+  } catch (err) {
+    return res.status(404).json({
+      message: "Something goes wrong",
+      data: err.message,
+    });
+  }
+}
+
+async function getMatchesByTeam(req,res){
+  const idTeam = req.params.id;
+  try {
+    const matches = await Match.findAll({
+      where: {
+        [Op.or]: [
+          { id_home: idTeam },
+          { id_away: idTeam },
+        ],
+      },
+      include: [
+        {
+          model: Tournament,
+          required: true,
+        },
+        {
+          model: Team,
+          as: "home",
+        },
+        {
+          model: Team,
+          as: "away",
+        },
+      ],
+    });
+    return res.status(200).json({
+      matches,
+    });
+  } catch (err) {
+    return res.status(404).json({
+      message: "Something goes wrong",
+      data: err.message,
+    });
+  }
+}
 
 module.exports = {
   getMatches,
@@ -102,4 +204,6 @@ module.exports = {
   createMatch,
   editMatches,
   deleteMatch,
+  getMatchesByTournament,
+  getMatchesByTeam
 };

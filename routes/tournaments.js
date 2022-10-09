@@ -6,6 +6,7 @@ const {
   getTournamentById,
   updateTournamentById,
   deleteTournamentById,
+  getTournamentTeams,
 } = require("../controllers/tournaments");
 const auth = require("../middlewares/auth");
 
