@@ -1,7 +1,13 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-const { createTournament, getTournaments, getTournamentById, updateTournamentById, deleteTournamentById } = require('../controllers/tournaments')
-const auth = require('../middlewares/auth');
+const {
+  createTournament,
+  getTournaments,
+  getTournamentById,
+  updateTournamentById,
+  deleteTournamentById,
+} = require("../controllers/tournaments");
+const auth = require("../middlewares/auth");
 
 /**
  * @openapi
@@ -45,7 +51,7 @@ const auth = require('../middlewares/auth');
  *              typeTournament:
  *                type: string
  *                default: 'International'
- *              
+ *
  *     responses:
  *      201:
  *        description: Created tournament successfully
@@ -67,7 +73,7 @@ const auth = require('../middlewares/auth');
  *                    type: string
  *                  typeTournament:
  *                    type: string
- * 
+ *
  *      409:
  *        description: Conflict
  *        content:
@@ -89,8 +95,7 @@ const auth = require('../middlewares/auth');
  *                 error:
  *                  type: string
  */
-router.post('/', auth.isAdmin, createTournament)
-
+router.post("/", auth.isAdmin, createTournament);
 
 // GET /tournaments
 // Get all tournaments
@@ -136,7 +141,7 @@ router.post('/', auth.isAdmin, createTournament)
  *              properties:
  *                 message:
  *                  type: string
- * 
+ *
  *       500:
  *         description: Internal server error
  *         content:
@@ -146,7 +151,7 @@ router.post('/', auth.isAdmin, createTournament)
  *                 message:
  *                  type: string
  */
-router.get('/', auth.isAdmin, getTournaments)
+router.get("/", auth.isAdmin, getTournaments);
 
 // GET /tournaments/:id_tournament
 // Get a tournament by id
@@ -194,7 +199,7 @@ router.get('/', auth.isAdmin, getTournaments)
  *              properties:
  *                 message:
  *                  type: string
- * 
+ *
  *       500:
  *         description: Internal server error
  *         content:
@@ -204,9 +209,7 @@ router.get('/', auth.isAdmin, getTournaments)
  *                 message:
  *                  type: string
  */
-router.get('/:id_tournament', auth.isAdmin, getTournamentById)
-
-
+router.get("/:id_tournament", auth.isAdmin, getTournamentById);
 
 // PUT /tournaments/:id_tournament
 // Update a tournament by id
@@ -257,7 +260,7 @@ router.get('/:id_tournament', auth.isAdmin, getTournamentById)
  *              typeTournament:
  *                type: string
  *                default: 'International'
- *              
+ *
  *     responses:
  *      200:
  *        description: Updated tournament successfully
@@ -279,7 +282,7 @@ router.get('/:id_tournament', auth.isAdmin, getTournamentById)
  *                    type: string
  *                  typeTournament:
  *                    type: string
- * 
+ *
  *      409:
  *        description: Conflict
  *        content:
@@ -301,7 +304,7 @@ router.get('/:id_tournament', auth.isAdmin, getTournamentById)
  *                 error:
  *                  type: string
  */
-router.put('/:id_tournament', auth.isAdmin, updateTournamentById)
+router.put("/:id_tournament", auth.isAdmin, updateTournamentById);
 
 // DELETE /tournaments/:id_tournament
 // Delete a tournament by id
@@ -314,7 +317,7 @@ router.put('/:id_tournament', auth.isAdmin, updateTournamentById)
  *     tags:
  *     - Tournaments
  *     summary: Delete a tournament by id
- *     description: Delete a tournament if exists by id from database 
+ *     description: Delete a tournament if exists by id from database
  *     parameters:
  *        - name: id_tournament
  *          in: path
@@ -323,7 +326,7 @@ router.put('/:id_tournament', auth.isAdmin, updateTournamentById)
  *     responses:
  *       204:
  *         description: Success delete
- *       
+ *
  *       404:
  *         description: Not found
  *         content:
@@ -332,7 +335,7 @@ router.put('/:id_tournament', auth.isAdmin, updateTournamentById)
  *              properties:
  *                 message:
  *                  type: string
- * 
+ *
  *       500:
  *         description: Internal server error
  *         content:
@@ -342,6 +345,6 @@ router.put('/:id_tournament', auth.isAdmin, updateTournamentById)
  *                 message:
  *                  type: string
  */
-router.delete('/:id_tournament', auth.isAdmin, deleteTournamentById)
+router.delete("/:id_tournament", auth.isAdmin, deleteTournamentById);
 
 module.exports = router;

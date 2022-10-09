@@ -111,9 +111,9 @@ async function deleteSquad(req, res) {
 }
 
 module.exports = {
-    getSquads,
-    getSquad,
-    createSquad,
-    editSquad,
-    deleteSquad,
+  getSquads,
+  getSquad,
+  createSquad,
+  editSquad,
+  deleteSquad,
 };

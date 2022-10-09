@@ -105,9 +105,9 @@ async function deleteTeam(req, res) {
     });
   } catch (err) {
     return res.status(500).json({
-      message: 'Internal server error',
-      data:err
-  })
+      message: "Internal server error",
+      data: err,
+    });
   }
 }
 

@@ -33,23 +33,25 @@ async function signUp(req, res) {
 
 async function logIn(req, res) {
   const body = req.body;
-  const user = await Usuario.findOne({where: {email: body.username},
-  $or: [{username: body.username}]});
-  if(!user){
-    return res.status(404).json({error: "Usuario no encontrado"});
+  const user = await Usuario.findOne({
+    where: { email: body.username },
+    $or: [{ username: body.username }],
+  });
+  if (!user) {
+    return res.status(404).json({ error: "Usuario no encontrado" });
   }
-  if(Usuario.validatePassword(body['password'], user.salt, user.hash)){
+  if (Usuario.validatePassword(body["password"], user.salt, user.hash)) {
     return res.status(200).json({
       usuario: user.username,
       email: user.email,
-      token: Usuario.generateJWT(user)
+      token: Usuario.generateJWT(user),
     });
-  }else{
-    return res.status(401).json({error: "Contraseña incorrecta"});
+  } else {
+    return res.status(401).json({ error: "Contraseña incorrecta" });
   }
 }
 
 module.exports = {
   signUp,
   logIn,
-}
+};

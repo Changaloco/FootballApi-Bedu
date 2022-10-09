@@ -14,7 +14,7 @@ async function getMatches(req, res) {
   }
 }
 async function getMatch(req, res) {
-    const idMatch = req.params.id;
+  const idMatch = req.params.id;
   try {
     const match = await Match.findByPk(idMatch);
     if (!match) {
@@ -52,8 +52,8 @@ async function createMatch(req, res) {
   }
 }
 async function editMatches(req, res) {
-    const idMatch = req.params.id;
-    const body = req.body;
+  const idMatch = req.params.id;
+  const body = req.body;
   try {
     const match = await Match.findByPk(idMatch);
     if (!match) {
@@ -78,7 +78,7 @@ async function editMatches(req, res) {
   }
 }
 async function deleteMatch(req, res) {
-    const idMatch = req.params.id;
+  const idMatch = req.params.id;
   try {
     const match = await Match.findByPk(idMatch);
     if (!match) {
@@ -97,9 +97,9 @@ async function deleteMatch(req, res) {
 }
 
 module.exports = {
-    getMatches,
-    getMatch,
-    createMatch,
-    editMatches,
-    deleteMatch,
-}
+  getMatches,
+  getMatch,
+  createMatch,
+  editMatches,
+  deleteMatch,
+};
