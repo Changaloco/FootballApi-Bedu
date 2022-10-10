@@ -1,7 +1,7 @@
 const Squad = require("../models/Squad");
 const Player = require("../models/player");
 const Team = require("../models/Team");
-const Tournament = require("../models/Tournament");
+const Tournament = require("../models/tournament");
 
 async function getSquads(req, res) {
   const options = {

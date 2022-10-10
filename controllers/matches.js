@@ -1,7 +1,7 @@
 const {Op} = require('sequelize');
 const Match = require("../models/Match");
 const Team = require("../models/Team");
-const Tournament = require("../models/Tournament");
+const Tournament = require("../models/tournament");
 
 async function getMatches(req, res) {
   const options = {
