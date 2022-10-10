@@ -31,6 +31,29 @@ Proyecto de Backend Fundamentals.
 
 * JWT
 
+
+## 🗒 Historias de usuario
+
+### HU-1: 
+![HU1](https://user-images.githubusercontent.com/42697554/194795828-2f7dc424-afd0-41e6-ae91-01a403e31eca.jpeg)
+
+### HU-2: 
+![HU2](https://user-images.githubusercontent.com/42697554/194795883-a7b29c86-ad15-41b4-854d-88e8a5437d45.jpeg)
+
+### HU-3: 
+![HU3](https://user-images.githubusercontent.com/42697554/194795899-c6d603c2-6dfc-4a9d-933e-6dec5cc3c18d.jpeg)
+
+### HU-4:
+![HU4](https://user-images.githubusercontent.com/42697554/194795915-ea569bed-5a5d-4079-b157-5faf431e75aa.jpeg)
+
+### HU-5: 
+![HU5](https://user-images.githubusercontent.com/42697554/194795928-4ea72835-ec99-4171-b073-e69ed16cd083.jpeg)
+
+
+## 📕 Diagrama De Base de Datos:
+![Diagrama](https://user-images.githubusercontent.com/42697554/194796207-c4a719a0-bd9d-404d-b476-86d2f1f32103.jpeg)
+
+
 ## 🛠️ Funcionalidad
   
 FootballApi es una API. En donde nuestra api es para que los desarrolladores puedan hacer uso de ella, la api les mostrará acerca de los jugadores que hay en un equipo, al igual como todos los equipos que hay en liga, los torneos que hay y en que fechas comienzan y acaban, al igual sobre con quienes se van a enfrentar.
