@@ -15,8 +15,6 @@ const {
  * @openapi
  * '/teams':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Teams
  *     summary: Get all teams
@@ -61,7 +59,7 @@ const {
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getTeams);
+router.get("/", getTeams);
 
 
 // GET /teams/:id_team
@@ -70,8 +68,6 @@ router.get("/", auth.isAdmin, getTeams);
  * @openapi
  * '/teams/{id_team}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Teams
  *     summary: Get a team by id
@@ -118,7 +114,7 @@ router.get("/", auth.isAdmin, getTeams);
  *                 message:
  *                  type: string
  */
-router.get("/:id", auth.isAdmin, getTeam);
+router.get("/:id", getTeam);
 
 // POST /teams
 /**

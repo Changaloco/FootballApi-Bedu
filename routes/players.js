@@ -90,8 +90,6 @@ router.post("/", auth.isAdmin, createPlayer);
  * @openapi
  * '/players':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Get all players
@@ -134,7 +132,7 @@ router.post("/", auth.isAdmin, createPlayer);
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getPlayers);
+router.get("/", getPlayers);
 
 // GET /players/:id_player
 // Get player by id
@@ -142,8 +140,6 @@ router.get("/", auth.isAdmin, getPlayers);
  * @openapi
  * '/players/{id_player}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Get a player by id
@@ -188,7 +184,7 @@ router.get("/", auth.isAdmin, getPlayers);
  *                 message:
  *                  type: string
  */
-router.get("/:id_player", auth.isAdmin, getPlayerById);
+router.get("/:id_player", getPlayerById);
 
 // PUT /players/:id_player
 // Update player by id

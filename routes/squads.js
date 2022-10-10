@@ -16,8 +16,6 @@ const {
  * @openapi
  * '/squads':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Squads
  *     summary: Get all squads
@@ -62,7 +60,7 @@ const {
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getSquads)
+router.get("/", getSquads)
 
 // GET /squads/:id_squad
 // Get player by id
@@ -70,8 +68,6 @@ router.get("/", auth.isAdmin, getSquads)
  * @openapi
  * '/squads/{id_squad}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Squads
  *     summary: Get a squads by id
@@ -118,7 +114,7 @@ router.get("/", auth.isAdmin, getSquads)
  *                 message:
  *                  type: string
  */
-router.get("/:id", auth.isAdmin, getSquad)
+router.get("/:id", getSquad)
 
 
 // POST /squads
@@ -344,8 +340,6 @@ router.delete("/:id", auth.isAdmin, deleteSquad)
  * @openapi
  * '/squads/teams/{id_team}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Squads
  *     summary: Get squads by team id
@@ -406,7 +400,7 @@ router.delete("/:id", auth.isAdmin, deleteSquad)
  *                 message:
  *                  type: string
  */
-router.get("/teams/:id", auth.isAdmin, getTeamSquad);
+router.get("/teams/:id", getTeamSquad);
 
 // GET /squads/teams/tournaments/:id
 // Get squads by team id and tournament id
@@ -414,8 +408,6 @@ router.get("/teams/:id", auth.isAdmin, getTeamSquad);
  * @openapi
  * '/squads/teams/tournaments/{id_team}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Squads
  *     summary: Get squads by team id and tournament id
@@ -468,5 +460,5 @@ router.get("/teams/:id", auth.isAdmin, getTeamSquad);
  *                 message:
  *                  type: string
  */
-router.get("/teams/tournaments/:id", auth.isAdmin, getSquadTeamTournaments);
+router.get("/teams/tournaments/:id", getSquadTeamTournaments);
 module.exports = router;

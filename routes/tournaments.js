@@ -6,7 +6,6 @@ const {
   getTournamentById,
   updateTournamentById,
   deleteTournamentById,
-  getTournamentTeams,
 } = require("../controllers/tournaments");
 const auth = require("../middlewares/auth");
 
@@ -104,8 +103,6 @@ router.post("/", auth.isAdmin, createTournament);
  * @openapi
  * '/tournaments':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Get all tournaments
@@ -152,7 +149,7 @@ router.post("/", auth.isAdmin, createTournament);
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getTournaments);
+router.get("/", getTournaments);
 
 // GET /tournaments/:id_tournament
 // Get a tournament by id
@@ -160,8 +157,6 @@ router.get("/", auth.isAdmin, getTournaments);
  * @openapi
  * '/tournaments/{id_tournament}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Get a tournament by id
@@ -210,7 +205,7 @@ router.get("/", auth.isAdmin, getTournaments);
  *                 message:
  *                  type: string
  */
-router.get("/:id_tournament", auth.isAdmin, getTournamentById);
+router.get("/:id_tournament", getTournamentById);
 
 // PUT /tournaments/:id_tournament
 // Update a tournament by id

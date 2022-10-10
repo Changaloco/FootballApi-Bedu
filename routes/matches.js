@@ -16,8 +16,6 @@ const {
  * @openapi
  * '/matches':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Matches
  *     summary: Get all matches
@@ -66,7 +64,7 @@ const {
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getMatches);
+router.get("/", getMatches);
 
 
 // GET /matches/:id_match
@@ -127,7 +125,7 @@ router.get("/", auth.isAdmin, getMatches);
  *                 message:
  *                  type: string
  */
-router.get("/:id", auth.isAdmin, getMatch);
+router.get("/:id", getMatch);
 
 // POST /matches
 /**
@@ -324,7 +322,7 @@ router.post("/", auth.isAdmin, createMatch);
  *                 error:
  *                  type: string
  */
-router.patch("/:id", auth.isAdmin, editMatches);
+router.patch("/:id", auth.isUser, editMatches);
 
 // DELETE /matches/:id_match
 // Delete match by id
@@ -373,8 +371,6 @@ router.delete("/:id", auth.isAdmin, deleteMatch);
  * @openapi
  * '/matches/tournaments/{id_tournament}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Matches
  *     summary: Get matches by tournament id
@@ -439,7 +435,7 @@ router.delete("/:id", auth.isAdmin, deleteMatch);
  *                 message:
  *                  type: string
  */
-router.get("/tournaments/:id", auth.isAdmin, getMatchesByTournament);
+router.get("/tournaments/:id", getMatchesByTournament);
 
 
 // GET /matches/teams/:id_team
@@ -448,8 +444,6 @@ router.get("/tournaments/:id", auth.isAdmin, getMatchesByTournament);
  * @openapi
  * '/matches/teams/{id_team}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Matches
  *     summary: Get matches by team id
@@ -545,5 +539,5 @@ router.get("/tournaments/:id", auth.isAdmin, getMatchesByTournament);
  *                 message:
  *                  type: string
  */
-router.get("/teams/:id", auth.isAdmin, getMatchesByTeam);
+router.get("/teams/:id", getMatchesByTeam);
 module.exports = router;
