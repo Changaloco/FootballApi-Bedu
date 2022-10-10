@@ -1,5 +1,5 @@
 const Squad = require("../models/Squad");
-const Player = require("../models/Player");
+const Player = require("../models/player");
 const Team = require("../models/Team");
 const Tournament = require("../models/Tournament");
 
