@@ -8,13 +8,6 @@ const options = require("./swagger");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
-const Usuario = require("./models/Usuario");
-const Player = require("./models/player");
-const Team = require("./models/Team");
-const Tournament = require("./models/tournament");
-const Squad = require("./models/Squad");
-const Match = require("./models/Match");
-
 const auth = require("./middlewares/auth");
 
 const app = express();
@@ -31,8 +24,6 @@ app.listen(process.env.PORT, () => {
 try {
   sequelize.authenticate();
   sequelize.sync({
-    //force: true,
-    //alter: true
   });
 } catch (error) {
   console.log(error);
