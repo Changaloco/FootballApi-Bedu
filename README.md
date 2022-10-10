@@ -97,5 +97,12 @@ Este proyecto no tiene el objetivo de convertirse en una aplicación totalmente 
 El código a crear buscará desarrollar cada uno de los temas vistos en las sesiones que serán extraídos de las secciones de postwork y reto final, buscando la manera de aplicar lo que se explicó durante cada sesión.
 
 
+### QR al repositorio:
+![QR](https://user-images.githubusercontent.com/42697554/194797215-2a19d241-1b0e-435f-a2c6-9edc2d0da0a3.jpeg)
+
+
+### Link del sitio en la nube: [FootballApi](https://footballapi318.herokuapp.com)
+
+
 
 <p><br /> &copy; Equipo 19 - Desarrollo Web - Santander - 2022
