@@ -26,7 +26,6 @@ async function createTournament(req, res) {
       !year ||
       !startDate ||
       !endDate ||
-      !winner ||
       !typeTournament
     ) {
       return res.status(400).json({
