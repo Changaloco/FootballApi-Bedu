@@ -26,7 +26,7 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:4000",
+                url: "https://footballapi318.herokuapp.com/",
             },
         ],
     },
