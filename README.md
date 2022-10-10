@@ -41,7 +41,7 @@ En la api también podrán agregar, editar o hasta eliminar ya seá algún jugad
 
 * Para su correcto funcionamiento, la API requiere uso de postman o insomnia para registrarse e iniciar sesión del usuario para el token.
 
-* La API esta documentada con swagger y openAPI, lo cuál al momento de correr el proyecto se tiene que entrar a la siguiente liga: [Swagger](http://localhost:4000/api-docs/)
+* La API esta documentada con swagger y openAPI, lo cuál al momento de correr el proyecto se tiene que entrar a la siguiente liga: [Swagger](https://footballapi318.herokuapp.com/api-docs/)
 
 * Cada endpoint tiene seguridad, lo que significa que no cualquier persona puede hacer uso de los mismos, se tendrá que registrar e iniciar sesión
 para que les de un token y puedan usar los endpoints.
