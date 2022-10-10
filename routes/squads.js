@@ -16,8 +16,6 @@ const {
  * @openapi
  * '/squads':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Squads
  *     summary: Get all squads
@@ -70,8 +68,6 @@ router.get("/", getSquads)
  * @openapi
  * '/squads/{id_squad}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Squads
  *     summary: Get a squads by id
@@ -344,8 +340,6 @@ router.delete("/:id", auth.isAdmin, deleteSquad)
  * @openapi
  * '/squads/teams/{id_team}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Squads
  *     summary: Get squads by team id
@@ -414,8 +408,6 @@ router.get("/teams/:id", getTeamSquad);
  * @openapi
  * '/squads/teams/tournaments/{id_team}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Squads
  *     summary: Get squads by team id and tournament id

@@ -8,7 +8,7 @@ const squads = require("./squads");
 const matches = require("./matches");
 
 router.get("/", (req, res) => {
-  res.json({ info: "Welcome to football API!" });
+  res.json({ info: "Welcome to football API! for more information visit: https://github.com/olvera93/FootballApi-Bedu" });
 });
 
 router.use("/players", players);

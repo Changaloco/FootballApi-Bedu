@@ -16,8 +16,6 @@ const {
  * @openapi
  * '/matches':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Matches
  *     summary: Get all matches
@@ -324,7 +322,7 @@ router.post("/", auth.isAdmin, createMatch);
  *                 error:
  *                  type: string
  */
-router.patch("/:id", auth.isAdmin, editMatches);
+router.patch("/:id", auth.isUser, editMatches);
 
 // DELETE /matches/:id_match
 // Delete match by id
@@ -373,8 +371,6 @@ router.delete("/:id", auth.isAdmin, deleteMatch);
  * @openapi
  * '/matches/tournaments/{id_tournament}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Matches
  *     summary: Get matches by tournament id
@@ -448,8 +444,6 @@ router.get("/tournaments/:id", getMatchesByTournament);
  * @openapi
  * '/matches/teams/{id_team}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Matches
  *     summary: Get matches by team id

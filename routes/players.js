@@ -90,8 +90,6 @@ router.post("/", auth.isAdmin, createPlayer);
  * @openapi
  * '/players':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Get all players
@@ -142,8 +140,6 @@ router.get("/", getPlayers);
  * @openapi
  * '/players/{id_player}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Players
  *     summary: Get a player by id

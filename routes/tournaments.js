@@ -103,8 +103,6 @@ router.post("/", auth.isAdmin, createTournament);
  * @openapi
  * '/tournaments':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Get all tournaments
@@ -159,8 +157,6 @@ router.get("/", getTournaments);
  * @openapi
  * '/tournaments/{id_tournament}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Tournaments
  *     summary: Get a tournament by id

@@ -15,8 +15,6 @@ const {
  * @openapi
  * '/teams':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Teams
  *     summary: Get all teams
@@ -70,8 +68,6 @@ router.get("/", getTeams);
  * @openapi
  * '/teams/{id_team}':
  *  get:
- *     security:
- *       - Authorization: []
  *     tags:
  *     - Teams
  *     summary: Get a team by id
