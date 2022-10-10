@@ -66,7 +66,7 @@ const {
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getMatches);
+router.get("/", getMatches);
 
 
 // GET /matches/:id_match
@@ -127,7 +127,7 @@ router.get("/", auth.isAdmin, getMatches);
  *                 message:
  *                  type: string
  */
-router.get("/:id", auth.isAdmin, getMatch);
+router.get("/:id", getMatch);
 
 // POST /matches
 /**
@@ -439,7 +439,7 @@ router.delete("/:id", auth.isAdmin, deleteMatch);
  *                 message:
  *                  type: string
  */
-router.get("/tournaments/:id", auth.isAdmin, getMatchesByTournament);
+router.get("/tournaments/:id", getMatchesByTournament);
 
 
 // GET /matches/teams/:id_team
@@ -545,5 +545,5 @@ router.get("/tournaments/:id", auth.isAdmin, getMatchesByTournament);
  *                 message:
  *                  type: string
  */
-router.get("/teams/:id", auth.isAdmin, getMatchesByTeam);
+router.get("/teams/:id", getMatchesByTeam);
 module.exports = router;

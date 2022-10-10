@@ -134,7 +134,7 @@ router.post("/", auth.isAdmin, createPlayer);
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getPlayers);
+router.get("/", getPlayers);
 
 // GET /players/:id_player
 // Get player by id
@@ -188,7 +188,7 @@ router.get("/", auth.isAdmin, getPlayers);
  *                 message:
  *                  type: string
  */
-router.get("/:id_player", auth.isAdmin, getPlayerById);
+router.get("/:id_player", getPlayerById);
 
 // PUT /players/:id_player
 // Update player by id

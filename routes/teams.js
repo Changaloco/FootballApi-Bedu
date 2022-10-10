@@ -61,7 +61,7 @@ const {
  *                 message:
  *                  type: string
  */
-router.get("/", auth.isAdmin, getTeams);
+router.get("/", getTeams);
 
 
 // GET /teams/:id_team
@@ -118,7 +118,7 @@ router.get("/", auth.isAdmin, getTeams);
  *                 message:
  *                  type: string
  */
-router.get("/:id", auth.isAdmin, getTeam);
+router.get("/:id", getTeam);
 
 // POST /teams
 /**
