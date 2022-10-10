@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
-const Player = require("./Player");
+const Player = require("./player");
 const Tournament = require("./tournament");
 const Team = require("./Team");
 
