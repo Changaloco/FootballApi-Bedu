@@ -4,23 +4,29 @@ const Team = require("../models/Team");
 const Tournament = require("../models/Tournament");
 
 async function getSquads(req, res) {
+  const options = {
+    include: [
+      {
+        model: Player,
+        required: true,
+      },
+      {
+        model: Team,
+        required: true,
+      },
+      {
+        model: Tournament,
+        required: true,
+      },
+    ],
+  }
+  const {limit, offset} = req.query;
+  if(limit && offset){
+    options.limit = limit;
+    options.offset = offset;
+  }
   try {
-    const squads = await Squad.findAll({
-      include: [
-        {
-          model: Player,
-          required: true,
-        },
-        {
-          model: Team,
-          required: true,
-        },
-        {
-          model: Tournament,
-          required: true,
-        },
-      ],
-    });
+    const squads = await Squad.findAll(options);
     return res.status(200).json({
       squads,
     });
@@ -62,7 +68,7 @@ async function getSquad(req, res) {
   } catch (err) {
     return res.status(404).json({
       message: "Something goes wrong",
-      data: { err },
+      data: err.message,
     });
   }
 }
@@ -138,13 +144,13 @@ async function deleteSquad(req, res) {
       });
     }
     await squad.destroy();
-    res.status(204).json({
+    res.status(200).json({
       message: "Squad deleted",
     });
   } catch (err) {
     return res.status(500).json({
       message: "Internal server error",
-      data: err,
+      data: err.message,
     });
   }
 }

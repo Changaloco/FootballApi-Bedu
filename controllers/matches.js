@@ -4,23 +4,29 @@ const Team = require("../models/Team");
 const Tournament = require("../models/Tournament");
 
 async function getMatches(req, res) {
+  const options = {
+    include: [
+      {
+        model: Tournament,
+        required: true,
+      },
+      {
+        model: Team,
+        as: "home",
+      },
+      {
+        model: Team,
+        as: "away",
+      },
+    ],
+  }
+  const {limit,offset} = req.query;
+  if(limit && offset){
+    options.limit = parseInt(limit);
+    options.offset = parseInt(offset);
+  }
   try {
-    const matches = await Match.findAll({
-      include: [
-        {
-          model: Tournament,
-          required: true,
-        },
-        {
-          model: Team,
-          as: "home",
-        },
-        {
-          model: Team,
-          as: "away",
-        },
-      ],
-    });
+    const matches = await Match.findAll(options);
     return res.status(200).json({
       matches,
     });
@@ -61,7 +67,7 @@ async function getMatch(req, res) {
   } catch (err) {
     return res.status(404).json({
       message: "Something goes wrong",
-      data: { err },
+      data: err.message,
     });
   }
 }
@@ -149,7 +155,7 @@ async function deleteMatch(req, res) {
   } catch (err) {
     return res.status(500).json({
       message: "Internal server error",
-      data: err,
+      data: err.message,
     });
   }
 }

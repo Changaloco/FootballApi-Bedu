@@ -38,6 +38,7 @@ const Tournament = sequelize.define(
 
     typeTournament: {
       type: DataTypes.STRING,
+      allowNull: true,
       validate: {
         customValidator: (value) => {
             const enums = ['league', 'coup']

@@ -34,21 +34,27 @@ async function createPlayer(req, res) {
   } catch (error) {
     return res.status(500).json({
       message: "Internal server error",
-      error,
+      data: error.message,
     });
   }
 }
 
 async function getPlayers(req, res) {
+  const options = {};
+  const { limit, offset } = req.query;
+  if (limit && offset) {
+    options.limit = limit;
+    options.offset = offset;
+  }
   try {
-    const players = await Player.findAll();
+    const players = await Player.findAll(options);
     return res.status(200).json({
       players,
     });
   } catch (error) {
     return res.status(404).json({
       message: "Something goes wrong",
-      data: { error },
+      data: error.message,
     });
   }
 }
@@ -76,7 +82,7 @@ async function getPlayerById(req, res) {
   } catch (error) {
     return res.status(500).json({
       message: "Internal server error",
-      error,
+      data: error.message,
     });
   }
 }
@@ -139,13 +145,13 @@ async function deletePlayerById(req, res) {
 
     await players.destroy();
 
-    return res.status(204).json({
+    return res.status(200).json({
       message: "Player deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({
       message: "Internal server error",
-      error,
+      data: error.message,
     });
   }
 }

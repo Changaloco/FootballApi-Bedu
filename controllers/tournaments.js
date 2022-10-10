@@ -46,7 +46,7 @@ async function createTournament(req, res) {
   } catch (error) {
     return res.status(500).json({
       message: "Internal server error",
-      error,
+      data: error.message,
     });
   }
 }
@@ -54,15 +54,23 @@ async function createTournament(req, res) {
 // GET /tournaments
 // Get all tournaments
 async function getTournaments(req, res) {
+  const options = {
+
+  }
+  const {limit, offset} = req.query;
+  if(limit && offset){
+    options.limit = parseInt(limit);
+    options.offset = parseInt(offset);
+  }
   try {
-    const tournaments = await Tournament.findAll();
+    const tournaments = await Tournament.findAll(options);
     return res.status(200).json({
       tournaments,
     });
   } catch (error) {
     return res.status(500).json({
       message: "Internal server error",
-      error,
+      data:error.message,
     });
   }
 }
@@ -92,7 +100,7 @@ async function getTournamentById(req, res) {
   } catch (error) {
     return res.status(500).json({
       message: "Internal server error",
-      error,
+      data:error.message,
     });
   }
 }
@@ -153,13 +161,13 @@ async function deleteTournamentById(req, res) {
 
     await tournaments.destroy();
 
-    return res.status(204).json({
+    return res.status(200).json({
       message: "Tournament deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({
       message: "Internal server error",
-      error,
+      data: error.message,
     });
   }
 }

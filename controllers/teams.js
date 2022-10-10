@@ -1,15 +1,21 @@
 const Team = require("../models/Team");
 
 async function getTeams(req, res) {
+  const options = {};
+  const { limit, offset } = req.query;
+  if (limit && offset) {
+    options.limit = limit;
+    options.offset = offset;
+  }
   try {
-    const teams = await Team.findAll();
+    const teams = await Team.findAll(options);
     return res.status(200).json({
       teams,
     });
   } catch (err) {
     return res.status(404).json({
       message: "Something goes wrong",
-      data: { err },
+      data: err.message,
     });
   }
 }
@@ -29,7 +35,7 @@ async function getTeam(req, res) {
   } catch (err) {
     return res.status(404).json({
       message: "Something goes wrong",
-      data: { err },
+      data: err.message,
     });
   }
 }
@@ -100,23 +106,21 @@ async function deleteTeam(req, res) {
     }
     await team.destroy();
 
-    return res.status(204).json({
+    return res.status(200).json({
       message: "Team deleted successfully",
     });
   } catch (err) {
     return res.status(500).json({
       message: "Internal server error",
-      data: err,
+      data: err.message,
     });
   }
 }
-
-
 
 module.exports = {
   getTeam,
   getTeams,
   createTeam,
   editTeam,
-  deleteTeam
+  deleteTeam,
 };
