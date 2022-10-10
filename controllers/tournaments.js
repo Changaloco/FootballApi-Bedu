@@ -1,4 +1,4 @@
-const Tournament = require("../models/tournament");
+const Tournament = require("../models/Tournament");
 
 // POST /tournaments
 // Create a new tournament
